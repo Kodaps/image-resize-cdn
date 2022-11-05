@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  cng_words_bot:
+    build: .
+    platform: linux/amd64
+    restart: unless-stopped

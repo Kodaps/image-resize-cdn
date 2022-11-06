@@ -51,4 +51,46 @@ const validateDimensions = (dims) => {
 }
 
 
-module.exports = validateDimensions;
+const getOriginalCandidates = (path) => {
+
+
+  let key = path.substring(1);
+
+  // parse the prefix, width, height and image name
+  // Ex: key=forest/drone/ploerdut_1/128x128.webp
+  let prefix = "";
+
+  const match = key.match(/(.*)\/(\d+)x(\d+)(.*)/);
+  const start = match[1];
+
+  const bits = start.split("/");
+  const imageName = bits.pop();
+
+  console.log(bits);
+
+  if (bits.length) { // if the array is not empty
+    prefix = bits.join("/") + "/";
+  }
+
+  console.log(prefix);
+
+
+  const w = parseInt(match[2], 10);
+  const h = parseInt(match[3], 10);
+  const {width, height} = validateDimensions({width: w, height: h});
+
+
+  // correction for jpg required for 'Sharp'
+  const requiredFormat = match[4] == "jpg" ? "jpeg" : match[4];
+
+  const originalKey = prefix + imageName +".jpg";
+  const originalKeyPng = prefix + imageName +".png";
+
+  return {originalKey, originalKeyPng, width, height}
+
+}
+
+module.exports = {
+  validateDimensions,
+  getOriginalCandidates
+};

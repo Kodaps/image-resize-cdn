@@ -7,7 +7,7 @@ const S3 = new AWS.S3({
   signatureVersion: 'v4',
 });
 
-const {validateDimensions, variables, BUCKET} = require('cdn-utilies');
+const {getOriginalCandidates, BUCKET} = require('./shared');
 
 
 exports.handler = async (event, context, callback) => {
@@ -31,32 +31,8 @@ exports.handler = async (event, context, callback) => {
   // Ex: path variable /forest/ploerdut/128x128.webp
   // key => forest/ploerdut/128x128.webp
 
-  let key = path.substring(1);
 
-  // parse the prefix, width, height and image name
-  // Ex: key=forest/drone/ploerdut_1/128x128.webp
-  let prefix = "";
-
-  const match = key.match(/(.*)\/(\d+)x(\d+)(.*)/);
-  start = match[1];
-
-  const bits = start.split("/");
-  const imageName = bits.pop();
-
-  if (bits) { // if the array is not []
-    prefix = bits.join("/");
-  }
-
-  const w = parseInt(match[2], 10);
-  const h = parseInt(match[3], 10);
-  const {width, height} = validateDimensions({width: w, height: h});
-
-
-  // correction for jpg required for 'Sharp'
-  const requiredFormat = match[4] == "jpg" ? "jpeg" : match[4];
-
-  let originalKey = prefix + "/" + imageName +".jpg";
-  const originalKeyPng = prefix + "/" + imageName +".png";
+  let {width, height, originalKey, originalKeyPng} = getOriginalCandidates(path);
 
   // get the source image file
 
@@ -67,6 +43,8 @@ exports.handler = async (event, context, callback) => {
   try {
     data = await S3.getObject({ Bucket: BUCKET, Key: originalKey }).promise();
   } catch(err) {
+    console.log("error, now getting ", originalKeyPng);
+
     originalKey = originalKeyPng;
     data = await S3.getObject({ Bucket: BUCKET, Key: originalKey }).promise();
   }

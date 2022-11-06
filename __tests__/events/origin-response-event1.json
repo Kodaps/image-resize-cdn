@@ -21,7 +21,7 @@
             ]
           },
           "clientIp": "2001:cdba::3257:9652",
-          "uri": "/100x100/png/test1.png",
+          "uri": "/test1/128x128.png",
           "querystring": "d=100x100",
           "method": "GET"
         },

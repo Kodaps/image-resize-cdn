@@ -3,7 +3,7 @@
 // defines the allowed dimensions, default dimensions and how much variance from allowed
 // dimension is allowed.
 
-const {validateDimensions, variables, BUCKET} = require('cdn-utilies');
+const {validateDimensions, variables, BUCKET} = require('./shared');
 
 
 

@@ -2,8 +2,8 @@
 
 let {variables, BUCKET} = require("./const");
 
-let validateDimensions = require("./utils");
+let {validateDimensions,getOriginalCandidates} = require("./utils");
 
 module.exports = {
-  variables, BUCKET, validateDimensions
+  variables, BUCKET, validateDimensions, getOriginalCandidates
 }

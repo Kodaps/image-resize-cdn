@@ -1,0 +1,14 @@
+{
+  "name": "mdn-img-cdn-docker",
+  "version": "1.0.0",
+  "description": "Modern Image CDN ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "D. Hockley",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.2.2"
+  }
+}

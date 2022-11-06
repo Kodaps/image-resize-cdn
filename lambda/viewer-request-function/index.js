@@ -3,6 +3,7 @@
 // defines the allowed dimensions, default dimensions and how much variance from allowed
 // dimension is allowed.
 const { variables, BUCKET } = require('../shared/const');
+const validateDimensions = require('../shared/utils');
 
 exports.handler = (event, _context, callback) => {
 

@@ -7,6 +7,7 @@ const S3 = new AWS.S3({
   signatureVersion: 'v4',
 });
 
+const validateDimensions = require('../shared/utils');
 
 const { variables, BUCKET } = require('../shared/const');
 

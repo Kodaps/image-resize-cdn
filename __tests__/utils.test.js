@@ -1,5 +1,5 @@
 
-const validateDimensions = require('./utils');
+const validateDimensions = require('../lambda/shared/utils');
 
 test('formats 500x500 to be 512x512', () => {
 

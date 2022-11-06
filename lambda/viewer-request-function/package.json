@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "querystring": "^0.2.1"
+    "cdn-utilies": "file:./shared"
   },
   "devDependencies": {},
   "description": ""

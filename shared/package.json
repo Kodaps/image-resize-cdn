@@ -1,0 +1,11 @@
+{
+  "name": "cdn-utilies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "D. Hockley",
+  "license": "ISC"
+}

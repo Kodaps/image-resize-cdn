@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "querystring": "^0.2.1",
     "sharp": "^0.31.2"
   },
   "devDependencies": {},

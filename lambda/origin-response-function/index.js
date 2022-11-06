@@ -7,9 +7,8 @@ const S3 = new AWS.S3({
   signatureVersion: 'v4',
 });
 
-const validateDimensions = require('../shared/utils');
+const {validateDimensions, variables, BUCKET} = require('cdn-utilies');
 
-const { variables, BUCKET } = require('../shared/const');
 
 exports.handler = async (event, context, callback) => {
 

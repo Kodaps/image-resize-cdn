@@ -9,7 +9,7 @@ mkdir -p lambda/viewer-request-function/shared
 # run docker to build w/ sharp binaries
 docker buildx build --platform=linux/amd64 --tag amazonlinux:nodejs .
 docker run --rm --volume ${PWD}/lambda/origin-response-function:/build amazonlinux:nodejs /bin/bash -c "source ~/.bashrc; npm init -f -y; npm install sharp --save; npm install --only=prod"
-docker run --rm --volume ${PWD}/lambda/viewer-request-function:/build amazonlinux:nodejs /bin/bash -c "source ~/.bashrc; npm init -f -y; pm install --only=prod"
+docker run --rm --volume ${PWD}/lambda/viewer-request-function:/build amazonlinux:nodejs /bin/bash -c "source ~/.bashrc; npm init -f -y; npm install --only=prod"
 
 # copy shared 
 cd shared

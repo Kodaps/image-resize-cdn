@@ -7,34 +7,19 @@ const S3 = new AWS.S3({
   signatureVersion: 'v4',
 });
 
-const {getOriginalCandidates, BUCKET} = require('./shared');
+const {BUCKET, getOriginalCandidates } = require('./shared');
 
 
-exports.handler = async (event, context, callback) => {
-
-  let response = event.Records[0].cf.response;
-
-  // only manage case where image is not present
-  if (response.status !== "404") {
-    callback(null, response);
-    return;
-  }
-
-  // let's create the file if it is missing
-  let request = event.Records[0].cf.request;
-
+const manageOriginResponseEvent = async (request, response) => {
 
   // reformat uri is of format /prefixpath/imgname/dxd.ext
   let path = request.uri;
 
-  // read the S3 key from the path variable, removing the initial "/".
-  // Ex: path variable /forest/ploerdut/128x128.webp
-  // key => forest/ploerdut/128x128.webp
+  let key = path.substring(1);
 
+  console.log(path, key);
 
-  let {width, height, originalKey, originalKeyPng} = getOriginalCandidates(path);
-
-  // get the source image file
+  let {width, height, originalKey, originalKeyPng, requiredFormat} = getOriginalCandidates(path);
 
   console.log("getting", BUCKET, "Key", originalKey);
 
@@ -44,21 +29,23 @@ exports.handler = async (event, context, callback) => {
     data = await S3.getObject({ Bucket: BUCKET, Key: originalKey }).promise();
   } catch(err) {
     console.log("error, now getting ", originalKeyPng);
-
-    originalKey = originalKeyPng;
-    data = await S3.getObject({ Bucket: BUCKET, Key: originalKey }).promise();
+    data = await S3.getObject({ Bucket: BUCKET, Key: originalKeyPng }).promise();
   }
 
   if (!data) {
-    callback(null, response);
-    return;
+    console.log("no data so returning");
+    return response;
   }
+
+  console.log(`reformating to ${width} x ${height} @ ${requiredFormat}`);
 
   let buffer = await Sharp(data.Body)
       .resize(width, height)
       .toFormat(requiredFormat)
       .toBuffer();
-  
+
+  console.log("trying to save");
+
   try {
     await S3.putObject({
           Body: buffer,
@@ -70,13 +57,44 @@ exports.handler = async (event, context, callback) => {
       }).promise();
   } catch(err) {
     console.log("Exception while writing resized image to bucket", err);
-  };
+  }
+
+  console.log("returning response");
 
   // generate a binary response with resized image
   response.status = "200";
   response.body = buffer.toString('base64');
   response.bodyEncoding = 'base64';
   response.headers['content-type'] = [{ key: 'Content-Type', value: 'image/' + requiredFormat }];
-  callback(null, response);
+  console.log("calling callback");
 
+  return response; 
+
+}
+
+
+
+// https://aws.amazon.com/blogs/networking-and-content-delivery/resizing-images-with-amazon-cloudfront-lambdaedge-aws-cdn-blog/
+
+
+exports.handler = (event, context, callback) => {
+
+  let response = event.Records[0].cf.response;
+
+  // only manage case where image is not present
+  if (response.status !== "404") {
+    callback(null, response);
+    return; 
+  }
+
+  // let's create the file if it is missing
+
+  let request = event.Records[0].cf.request;
+
+  manageOriginResponseEvent(request, response).then((resp) => {
+    callback(null, resp);
+  }).catch((err) => {
+    console.error(err);
+    callback(null, response);
+  })
 };

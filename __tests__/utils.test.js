@@ -1,5 +1,5 @@
 
-const {validateDimensions, getOriginalCandidates} = require('../shared/utils');
+const {validateDimensions, getOriginalCandidates } = require('../shared/utils');
 
 test('formats 500x500 to be 512x512', () => {
 
@@ -18,4 +18,5 @@ test('getOriginalCandidates returns correct values', () => {
   expect(originalKeyPng).toBe("test1.png");
   
 });
+
 

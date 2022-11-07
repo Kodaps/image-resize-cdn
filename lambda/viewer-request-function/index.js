@@ -3,9 +3,9 @@
 // defines the allowed dimensions, default dimensions and how much variance from allowed
 // dimension is allowed.
 
-const {validateDimensions, variables, BUCKET} = require('./shared');
+const {validateDimensions, variables } = require('./shared');
 
-
+// https://aws.amazon.com/blogs/networking-and-content-delivery/resizing-images-with-amazon-cloudfront-lambdaedge-aws-cdn-blog/
 
 exports.handler = (event, _context, callback) => {
 
@@ -47,16 +47,14 @@ exports.handler = (event, _context, callback) => {
     // read the accept header to determine if webP is supported.
     const accept = headers['accept']?headers['accept'][0].value:"";
 
-    const url = [];
+    const url = [prefix, imageName];
     // build the new uri to be forwarded upstream
-    url.push(prefix);
-    url.push(imageName);
 
     let ext = extension;
   
     // check support for webp
     if (accept.includes(variables.avifExtension)) {
-      url.push(variables.avifExtension);
+      ext= variables.avifExtension;
     } else if (accept.includes(variables.webpExtension)) {
       ext= variables.webpExtension;
     }

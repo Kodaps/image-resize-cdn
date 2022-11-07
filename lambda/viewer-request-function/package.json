@@ -8,9 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "cdn-utilies": "file:./shared"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "description": ""
 }

@@ -1,5 +1,5 @@
 
-const lambda = require('../lambda/origin-response-function');
+const lambda = require('../lambda/origin-response-function/index');
 const event1 = require("./events/origin-response-event1.json")
 
 test('origin response to work', () => {
@@ -11,3 +11,31 @@ test('origin response to work', () => {
   //lambda.handler(event1, null, callback)
 });
 
+
+fakeObject = () => {
+
+  return {
+    promise : async () => {
+      return {fakeData:"fakeData"}
+    }
+  }
+
+}
+
+
+const S3 = {
+
+  
+
+}
+
+
+test ("manageOriginResponseEvent", () => {
+
+
+  let response = event1.Records[0].cf.response;
+  let request = event1.Records[0].cf.request;
+
+
+  manageOriginResponseEvent()
+}) 

@@ -1,6 +1,7 @@
 
 const { variables } = require("./const");
 
+/*
 const string_to_slug = (str) => {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
@@ -18,6 +19,7 @@ const string_to_slug = (str) => {
 
   return str;
 }
+*/
 
 const validateDimensions = (dims) => {
 
@@ -79,14 +81,15 @@ const getOriginalCandidates = (path) => {
   const h = parseInt(match[3], 10);
   const {width, height} = validateDimensions({width: w, height: h});
 
+  const ext = match[4].substring(1);
 
   // correction for jpg required for 'Sharp'
-  const requiredFormat = match[4] == "jpg" ? "jpeg" : match[4];
+  const requiredFormat = ext == "jpg" ? "jpeg" : ext;
 
   const originalKey = prefix + imageName +".jpg";
   const originalKeyPng = prefix + imageName +".png";
 
-  return {originalKey, originalKeyPng, width, height}
+  return {originalKey, originalKeyPng, width, height, requiredFormat}
 
 }
 

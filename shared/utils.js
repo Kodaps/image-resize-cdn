@@ -33,9 +33,14 @@ const validateDimensions = (dims) => {
   let variancePercent = (variables.variance/100);
 
   for (let dimension of variables.allowedDimension) {
-      let minWidth = dimension.w - (dimension.w * variancePercent);
-      let maxWidth = dimension.w + (dimension.w * variancePercent);
-      if(width >= minWidth && width <= maxWidth){
+      let minWidth  = dimension.w - (dimension.w * variancePercent);
+      let maxWidth  = dimension.w + (dimension.w * variancePercent);
+      let minHeight = dimension.h - (dimension.h * variancePercent);
+      let maxHeight = dimension.h + (dimension.h * variancePercent);
+
+      if((width  >= minWidth  && width  <= maxWidth) &&
+         (height >= minHeight && height <= maxHeight))
+      {
           width = dimension.w;
           height = dimension.h;
           matchFound = true;

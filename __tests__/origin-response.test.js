@@ -1,5 +1,5 @@
 
-const lambda = require('../lambda/origin-response-function/index');
+// const lambda = require('../lambda/origin-response-function/index');
 const event1 = require("./events/origin-response-event1.json")
 
 test('origin response to work', () => {
@@ -32,10 +32,8 @@ const S3 = {
 
 test ("manageOriginResponseEvent", () => {
 
-
   let response = event1.Records[0].cf.response;
   let request = event1.Records[0].cf.request;
 
-
-  manageOriginResponseEvent()
+  // manageOriginResponseEvent()
 }) 

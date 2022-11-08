@@ -22,7 +22,7 @@ exports.handler = (event, _context, callback) => {
     // test lambda update
     // callback(null, request);
     // if there is no dimension attribute, just pass the request
-    if(!params.has("d")){
+    if(!params.has("d") && !params.has("fmt") ){
         callback(null, request);
         return;
     }

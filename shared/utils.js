@@ -73,14 +73,9 @@ const getOriginalCandidates = (path) => {
   const bits = start.split("/");
   const imageName = bits.pop();
 
-  console.log(bits);
-
   if (bits.length) { // if the array is not empty
     prefix = bits.join("/") + "/";
   }
-
-  console.log(prefix);
-
 
   const w = parseInt(match[2], 10);
   const h = parseInt(match[3], 10);

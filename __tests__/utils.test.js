@@ -25,6 +25,13 @@ test('formats 500x500 to be 512x512', () => {
 });
 
 
+test('formats 1920x1080 to be 1920x1080', () => {
+
+  const {width:w1, height:h1} = validateDimensions({width: 1920, height: 1080});
+  expect(w1).toBe(1920);
+  expect(h1).toBe(1080);
+});
+
 test('getOriginalCandidates returns correct values', () => {
 
   const {width, height,originalKey, originalKeyPng } = getOriginalCandidates("/test1/100x100.png");
@@ -36,3 +43,12 @@ test('getOriginalCandidates returns correct values', () => {
 });
 
 
+test('getOriginalCandidates returns correct values', () => {
+
+  const {width, height,originalKey, originalKeyPng } = getOriginalCandidates("/test1/480x270.png");
+  expect(width).toBe(480);
+  expect(height).toBe(270);
+  expect(originalKey).toBe("test1.jpg");
+  expect(originalKeyPng).toBe("test1.png");
+  
+});

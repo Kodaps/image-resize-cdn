@@ -7,7 +7,9 @@ const formats = {
   sq2:{w:512,h:512}, // sq 2
   rect2: {w:960,h:540},  // rect2 - fullHD / 2
   sq3:{w:1024,h:1024}, // sq3
-  rect3: {w:1920,h:1080}, // rect3 // fullHD 16:9
+  rect3: {w:1440,h:810},   // fullHD x 0.75
+  rect4: {w:1920,h:1080}, // rect3 // fullHD 16:9
+  sq4:{w:2048,h:2048}, // sq3
 }
 
 
@@ -21,6 +23,9 @@ const variables = {
     formats.rect2,  // rect2 - fullHD / 2
     formats.sq3, // sq3
     formats.rect3, // rect3 // fullHD 16:9
+    formats.rect4, // rect3 // fullHD 16:9
+    formats.sq4,
+
   ],
   defaultDimension : formats.sq1,
   variance: 33,

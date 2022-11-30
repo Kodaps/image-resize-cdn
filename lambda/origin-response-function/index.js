@@ -83,7 +83,19 @@ const manageOriginResponseEvent = async (request, response, bucket, bucketPrefix
           ACL:'public-read'
       }).promise();
   } catch(err) {
-    console.log("Exception while writing resized image to bucket", err);
+    try {
+      // try w/o ACL
+      await S3.putObject({
+          Body: buffer,
+          Bucket: bucket,
+          ContentType: 'image/' + requiredFormat,
+          CacheControl: 'max-age=31536000',
+          Key: bucketPrefix + key,
+          StorageClass: 'STANDARD'
+        }).promise();
+    } catch (er2) {
+      console.log("Exception while writing resized image to bucket", er2);
+    }
   }
 
   console.log("returning response");

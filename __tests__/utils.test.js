@@ -1,5 +1,5 @@
 
-const {validateDimensions, getOriginalCandidates } = require('../shared/utils');
+const {validateDimensions, getOriginalCandidate } = require('../shared/utils');
 
 test('formats 500x500 to be 512x512', () => {
 
@@ -32,23 +32,21 @@ test('formats 1920x1080 to be 1920x1080', () => {
   expect(h1).toBe(1080);
 });
 
-test('getOriginalCandidates returns correct values', () => {
+test('getOriginalCandidate returns correct values', () => {
 
-  const {width, height,originalKey, originalKeyPng } = getOriginalCandidates("/test1/100x100.png");
+  const {width, height,originalKey } = getOriginalCandidate("/test1/100x100.png");
   expect(width).toBe(128);
   expect(height).toBe(128);
-  expect(originalKey).toBe("test1.jpg");
-  expect(originalKeyPng).toBe("test1.png");
-  
+  expect(originalKey).toBe("test1");
 });
 
 
-test('getOriginalCandidates returns correct values', () => {
+test('getOriginalCandidate returns correct values', () => {
 
-  const {width, height,originalKey, originalKeyPng } = getOriginalCandidates("/test1/480x270.png");
+  const {width, height,originalKey } = getOriginalCandidate("/test1/480x270.png");
   expect(width).toBe(480);
   expect(height).toBe(270);
-  expect(originalKey).toBe("test1.jpg");
-  expect(originalKeyPng).toBe("test1.png");
-  
+  expect(originalKey).toBe("test1");
+
 });
+

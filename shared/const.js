@@ -33,9 +33,57 @@ const variables = {
   avifExtension: 'avif',
 };
 
+//const BUCKET = 'ecotree-res';
+//const BUCKET_PREFIX = 'site/4.3.0/';
+
 
 const BUCKET = 'image-resize-125400374371-us-east-1';
+const BUCKET_PREFIX = '';
+
+//const BUCKET = 'image-resize-125400374371-us-east-1';
+//const BUCKET_PREFIX = '';
+
+const BUCKET_RES = { // ecotree.fr
+  BUCKET: 'ecotree-res',
+  BUCKET_PREFIX: 'site/4.3.0/',
+  JPG_EXTENSION: ".jpg"
+}
+
+const BUCKET_RES_2 = { // ecotree.fr
+  BUCKET: 'cdn.ecotree.green',
+  BUCKET_PREFIX: '',
+  JPG_EXTENSION: ".jpg"
+}
+
+const BUCKET_MDN_IMG = { // ecotree.fr
+  BUCKET: 'image-resize-125400374371-us-east-1',
+  BUCKET_PREFIX: '',
+  JPG_EXTENSION: ".jpg"
+}
+
+const BUCKET_BO = { // ecotree.fr
+  BUCKET: 'blog-ecotree',
+  BUCKET_PREFIX: '',
+  JPG_EXTENSION: ".jpeg"
+}
+
+
+const BUCKET_LIST = {
+  "cdn.ecotree.fr": BUCKET_RES_2,
+  "d2omnifng3m7y7.cloudfront.net": BUCKET_RES_2,
+  "E30U3W83WAEDNB":  BUCKET_RES_2,
+  "cdn.ecotree.green": BUCKET_RES,
+  "d262e0vfgb2qs7.cloudfront.net": BUCKET_RES,
+  "E23G5W8MW0F84B": BUCKET_RES,
+  "bocdn.ecotree.fr": BUCKET_BO,
+  "d21x7cmog12k0h.cloudfront.net": BUCKET_BO,
+  "EQ43O8LWV49I4": BUCKET_BO,
+  "img.ecotree.fr": BUCKET_MDN_IMG,
+  "d1z2xofqct1q05.cloudfront.net": BUCKET_MDN_IMG,
+  "E1D50NY11PMGMI": BUCKET_MDN_IMG
+}
+
 
 module.exports = {
-  variables, BUCKET
+  variables, BUCKET, BUCKET_PREFIX, BUCKET_LIST
 }

@@ -1,10 +1,10 @@
 
 
-let {variables, BUCKET} = require("./const");
+let {variables, BUCKET, BUCKET_PREFIX, BUCKET_LIST} = require("./const");
 
-let {validateDimensions,getOriginalCandidates } = require("./utils");
+let {validateDimensions,getOriginalCandidate } = require("./utils");
 
 module.exports = {
-  variables, BUCKET, 
-  validateDimensions, getOriginalCandidates
+  variables, BUCKET, BUCKET_PREFIX, BUCKET_LIST,
+  validateDimensions, getOriginalCandidate
 }

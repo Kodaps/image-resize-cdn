@@ -20,7 +20,7 @@ cd ..
 mkdir -p dist && cd lambda/origin-response-function && zip -FS -q -r ../../dist/origin-response-function.zip * && cd ../..
 mkdir -p dist && cd lambda/viewer-request-function && zip -FS -q -r ../../dist/viewer-request-function.zip * && cd ../..
 cd dist
-aws s3 cp . s3://com.ecotree.lambdas/ --profile=ecotree --recursive
+#aws s3 cp . s3://com.ecotree.lambdas/ --profile=ecotree --recursive
 cd ..
 rm -rf ./lambda/origin-response-function/shared
 rm -rf ./lambda/viewer-request-function/shared

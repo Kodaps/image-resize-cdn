@@ -58,7 +58,7 @@ const validateDimensions = (dims) => {
 }
 
 
-const getOriginalCandidates = (path) => {
+const getOriginalCandidate = (path) => {
 
 
   let key = path.substring(1);
@@ -68,6 +68,11 @@ const getOriginalCandidates = (path) => {
   let prefix = "";
 
   const match = key.match(/(.*)\/(\d+)x(\d+)(.*)/);
+
+  if (!match) {
+    return path;
+  }
+
   const start = match[1];
 
   const bits = start.split("/");
@@ -86,14 +91,14 @@ const getOriginalCandidates = (path) => {
   // correction for jpg required for 'Sharp'
   const requiredFormat = ext == "jpg" ? "jpeg" : ext;
 
-  const originalKey = prefix + imageName +".jpg";
-  const originalKeyPng = prefix + imageName +".png";
+  const originalKey = prefix + imageName;
+  //const originalKeyPng = prefix + imageName +".png";
 
-  return {originalKey, originalKeyPng, width, height, requiredFormat}
+  return {originalKey, width, height, requiredFormat}
 
 }
 
 module.exports = {
   validateDimensions,
-  getOriginalCandidates
+  getOriginalCandidate
 };

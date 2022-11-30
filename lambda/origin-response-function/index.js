@@ -79,7 +79,8 @@ const manageOriginResponseEvent = async (request, response, bucket, bucketPrefix
           ContentType: 'image/' + requiredFormat,
           CacheControl: 'max-age=31536000',
           Key: bucketPrefix + key,
-          StorageClass: 'STANDARD'
+          StorageClass: 'STANDARD',
+          ACL:'public-read'
       }).promise();
   } catch(err) {
     console.log("Exception while writing resized image to bucket", err);

@@ -19,6 +19,7 @@ exports.handler = (event, _context, callback) => {
     let fwdUri = request.uri;
 
 
+
     // test lambda update
     // callback(null, request);
     // if there is no dimension attribute, just pass the request
@@ -26,6 +27,20 @@ exports.handler = (event, _context, callback) => {
         callback(null, request);
         return;
     }
+
+
+    const match = fwdUri.match(/(.*)\/(.*)\.(.*)/);
+
+    const prefix = match[1];
+    const imageName = match[2];
+    const extension = match[3];
+
+
+    if (!["jpg", "png", "jpeg"].includes(extension)) {
+      callback(null, request);
+      return;
+    }
+
     // read the dimension parameter value = width x height and split it by 'x'
     const dimensionMatch = params.get("d").split("x");
 
@@ -38,11 +53,7 @@ exports.handler = (event, _context, callback) => {
     // parse the prefix, image name and extension from the uri.
     // In our case /images/image.jpg
 
-    const match = fwdUri.match(/(.*)\/(.*)\.(.*)/);
-
-    const prefix = match[1];
-    const imageName = match[2];
-    const extension = match[3];
+ 
 
     // read the accept header to determine if webP is supported.
     const accept = headers['accept']?headers['accept'][0].value:"";
